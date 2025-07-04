@@ -32,22 +32,41 @@ function writeTemperature(temperature) {
 function writeWeatherType(type) {
   document.getElementById("type").innerHTML = type;
   const cardBg = document.getElementById("maincard");
+  const icon = document.getElementById("icon");
+
+  icon.style.fontSize = "33px";
 
   if (type === "Rain") {
     cardBg.style.background = "linear-gradient(to bottom, #a1c4fd, #c2e9fb)";
+    icon.className = "fas fa-cloud-showers-heavy";
+    icon.style.color = "#4a90e2";
   } else if (type === "Clear") {
     cardBg.style.background = "linear-gradient(to bottom, #ffe680, #ffd54f)";
+    icon.className = "fas fa-sun";
+    icon.style.color = "#fbc02d";
   } else if (type === "Clouds") {
     cardBg.style.background = "linear-gradient(to bottom, #e0eafc, #a9c0ff)";
+    icon.className = "fas fa-cloud";
+    icon.style.color = "#90a4ae";
   } else if (type === "Snow") {
     cardBg.style.background = "linear-gradient(to bottom, #e0eafc, #cfdef3)";
+    icon.className = "fas fa-snowflake";
+    icon.style.color = "#00acc1";
   } else if (type === "Thunderstorm") {
     cardBg.style.background = "linear-gradient(to bottom, #485563, #29323c)";
+    icon.className = "fas fa-bolt";
+    icon.style.color = "#ffca28";
   } else if (type === "Drizzle") {
     cardBg.style.background = "linear-gradient(to bottom, #cfd9df, #e2ebf0)";
+    icon.className = "fas fa-cloud-rain";
+    icon.style.color = "#81d4fa";
   } else if (type === "Mist" || type === "Fog") {
     cardBg.style.background = "linear-gradient(to bottom, #d3cce3, #e9e4f0)";
+    icon.className = "fas fa-smog";
+    icon.style.color = "#b0bec5";
   } else {
     cardBg.style.background = "linear-gradient(to bottom, #f0f0f0, #ffffff)";
+    icon.className = "fas fa-question-circle";
+    icon.style.color = "#999";
   }
 }
