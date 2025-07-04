@@ -1,7 +1,10 @@
 * {
+  font-family: "Carme", sans-serif;
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+}
+body {
   background-color: #b3d5fb;
 }
 .container {
@@ -53,4 +56,36 @@ input:focus {
 }
 .dark-light-mode img:hover {
   transform: rotate(360deg);
+}
+main {
+  padding-top: 50px;
+}
+.card {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  border-radius: 30px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  color: #4b5055;
+}
+
+.temperature {
+  font-size: 60px;
+}
+.weather-type {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 20px;
+}
+.weather-type img {
+  width: 30px;
+  height: 30px;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
 }

@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Carme&display=swap"
+      rel="stylesheet"
+    />
     <title>Weather</title>
     <link rel="website icon" href="./images/icons8-w-100.png" />
     <link rel="stylesheet" href="./style.css" />
@@ -26,6 +32,17 @@
           <img alt="sun" src="./images/01_sunny_color_w32.svg" />
         </div>
       </header>
+      <main>
+        <div class="card" id="maincard">
+          <h1 id="city"></h1>
+          <div class="temperature" id="temperature"></div>
+          <div class="weather-type">
+            <img alt="sun icon" src="./images/01_sunny_color_w32.svg" />
+            <span id="type"> </span>
+          </div>
+        </div>
+      </main>
     </div>
+    <script src="./script.js"></script>
   </body>
 </html>
