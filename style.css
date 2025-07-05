@@ -50,11 +50,11 @@ input:focus {
 .search-icon-img:hover {
   background-color: #ffa41a;
 }
-.dark-light-mode img {
+.modes img {
   cursor: pointer;
   transition: transform 0.8s ease-in-out;
 }
-.dark-light-mode img:hover {
+.modes img:hover {
   transform: rotate(360deg);
 }
 main {
@@ -101,4 +101,24 @@ h1 {
 .spinner i {
   color: #666;
   font-size: 30px;
+}
+.modes i {
+  font-size: 30px;
+  cursor: pointer;
+  color: #fcfffd;
+}
+.modes {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.toggler {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.toggler span {
+  color: #fcfffd;
+  font-weight: bolder;
+  font-size: 20px;
 }
