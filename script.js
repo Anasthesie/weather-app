@@ -1,5 +1,6 @@
 const myApiKey = "ffda1be21c57d59826201081fa8e338c";
 const limit = 1;
+let units = "metric";
 
 async function getWeatherDataForCityFromApi(city) {
   const locationUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=${limit}&appid=${myApiKey}`;
@@ -14,7 +15,7 @@ async function getWeatherDataForCityFromApi(city) {
   const lon = locationData[0].lon;
   const locationName = `${locationData[0].name}, ${locationData[0].country}`;
 
-  const weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${myApiKey}&units=metric`;
+  const weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${myApiKey}&units=${units}`;
   const weatherResponse = await fetch(weatherUrl);
   const weatherData = await weatherResponse.json();
 
@@ -97,4 +98,24 @@ cityInput.addEventListener("keypress", (e) => {
     const city = cityInput.value;
     showWeather(city);
   }
+});
+
+const toggleOn = document.getElementById("toggleIconon");
+const toggleOff = document.getElementById("togglerIconOff");
+
+toggleOn.addEventListener("click", () => {
+  toggleOff.style.display = "block";
+  toggleOn.style.display = "none";
+  units = "standard";
+
+  const city = cityInput.value;
+  showWeather(city);
+});
+toggleOff.addEventListener("click", () => {
+  toggleOn.style.display = "block";
+  toggleOff.style.display = "none";
+  units = "metric";
+
+  const city = cityInput.value;
+  showWeather(city);
 });

@@ -117,6 +117,10 @@ h1 {
   align-items: center;
   gap: 5px;
 }
+.toggler i:hover {
+  color: #ffe06f;
+  transition: 1s;
+}
 .toggler span {
   color: #fcfffd;
   font-weight: bolder;
