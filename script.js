@@ -1,7 +1,7 @@
 const myApiKey = "ffda1be21c57d59826201081fa8e338c";
 const limit = 1;
 
-async function getWeatherDataForCity(city) {
+async function getWeatherDataForCityFromApi(city) {
   const locationUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=${limit}&appid=${myApiKey}`;
   const locationResponse = await fetch(locationUrl);
   const locationData = await locationResponse.json();
@@ -71,37 +71,30 @@ function writeWeatherType(type) {
   }
 }
 
-
-
-
-
-const searchBtn = document.getElementById("searchBtn");
-searchBtn.addEventListener("click", () => {
-  const cityInput = document.getElementById("cityinput");
-  const city = cityInput.value;
-
-  getWeatherDataForCity(city).then((data) => {
+function showWeather(city) {
+  const spinner = document.getElementById("spinner");
+  spinner.style.display = "block";
+  getWeatherDataForCityFromApi(city).then((data) => {
     const weatherData = data.weather;
     const cityName = data.locationName;
-
     writeCityName(cityName);
     writeTemperature(Math.round(weatherData.list[0].main.temp));
     writeWeatherType(weatherData.list[0].weather[0].main);
+    spinner.style.display = "none";
   });
+}
+
+const searchBtn = document.getElementById("searchBtn");
+const cityInput = document.getElementById("cityinput");
+
+searchBtn.addEventListener("click", () => {
+  const city = cityInput.value;
+  showWeather(city);
 });
 
-const cityInput = document.getElementById("cityinput");
 cityInput.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
     const city = cityInput.value;
-
-    getWeatherDataForCity(city).then((data) => {
-      const weatherData = data.weather;
-      const cityName = data.locationName;
-
-      writeCityName(cityName);
-      writeTemperature(Math.round(weatherData.list[0].main.temp));
-      writeWeatherType(weatherData.list[0].weather[0].main);
-    });
+    showWeather(city);
   }
 });

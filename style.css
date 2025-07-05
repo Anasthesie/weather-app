@@ -95,3 +95,10 @@ main {
 h1 {
   font-size: 60px;
 }
+.spinner {
+  display: none;
+}
+.spinner i {
+  color: #666;
+  font-size: 30px;
+}
