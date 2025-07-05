@@ -2,15 +2,23 @@ const myApiKey = "ffda1be21c57d59826201081fa8e338c";
 const limit = 1;
 
 async function getWeatherDataForCity(city) {
-  const locationUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city},&limit=${limit}&appid=${myApiKey}`;
+  const locationUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=${limit}&appid=${myApiKey}`;
   const locationResponse = await fetch(locationUrl);
   const locationData = await locationResponse.json();
 
-  const weatherUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=${locationData[0].lat}&lon=${locationData[0].lon}&appid=${myApiKey}&units=metric`;
+  if (locationData.length === 0) {
+    alert("City not found");
+  }
+
+  const lat = locationData[0].lat;
+  const lon = locationData[0].lon;
+  const locationName = `${locationData[0].name}, ${locationData[0].country}`;
+
+  const weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${myApiKey}&units=metric`;
   const weatherResponse = await fetch(weatherUrl);
   const weatherData = await weatherResponse.json();
 
-  return weatherData;
+  return { weather: weatherData, locationName: locationName };
 }
 
 function writeCityName(name) {
@@ -63,14 +71,20 @@ function writeWeatherType(type) {
   }
 }
 
+
+
+
+
 const searchBtn = document.getElementById("searchBtn");
 searchBtn.addEventListener("click", () => {
   const cityInput = document.getElementById("cityinput");
   const city = cityInput.value;
 
-  getWeatherDataForCity(city).then((weatherData) => {
-    console.log(weatherData);
-    writeCityName(weatherData.city.name);
+  getWeatherDataForCity(city).then((data) => {
+    const weatherData = data.weather;
+    const cityName = data.locationName;
+
+    writeCityName(cityName);
     writeTemperature(Math.round(weatherData.list[0].main.temp));
     writeWeatherType(weatherData.list[0].weather[0].main);
   });
@@ -81,9 +95,11 @@ cityInput.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
     const city = cityInput.value;
 
-    getWeatherDataForCity(city).then((weatherData) => {
-      console.log(weatherData);
-      writeCityName(weatherData.city.name);
+    getWeatherDataForCity(city).then((data) => {
+      const weatherData = data.weather;
+      const cityName = data.locationName;
+
+      writeCityName(cityName);
       writeTemperature(Math.round(weatherData.list[0].main.temp));
       writeWeatherType(weatherData.list[0].weather[0].main);
     });
