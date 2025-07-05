@@ -1,9 +1,8 @@
 const myApiKey = "ffda1be21c57d59826201081fa8e338c";
-const city = "batumi";
 const limit = 1;
-const locationUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city},&limit=${limit}&appid=${myApiKey}`;
 
-async function getWeatherDataForCity() {
+async function getWeatherDataForCity(city) {
+  const locationUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city},&limit=${limit}&appid=${myApiKey}`;
   const locationResponse = await fetch(locationUrl);
   const locationData = await locationResponse.json();
 
@@ -13,13 +12,6 @@ async function getWeatherDataForCity() {
 
   return weatherData;
 }
-
-getWeatherDataForCity().then((weatherData) => {
-  console.log(weatherData);
-  writeCityName(weatherData.city.name);
-  writeTemperature(Math.round(weatherData.list[0].main.temp));
-  writeWeatherType(weatherData.list[0].weather[0].main);
-});
 
 function writeCityName(name) {
   document.getElementById("city").innerHTML = name;
@@ -70,3 +62,30 @@ function writeWeatherType(type) {
     icon.style.color = "#999";
   }
 }
+
+const searchBtn = document.getElementById("searchBtn");
+searchBtn.addEventListener("click", () => {
+  const cityInput = document.getElementById("cityinput");
+  const city = cityInput.value;
+
+  getWeatherDataForCity(city).then((weatherData) => {
+    console.log(weatherData);
+    writeCityName(weatherData.city.name);
+    writeTemperature(Math.round(weatherData.list[0].main.temp));
+    writeWeatherType(weatherData.list[0].weather[0].main);
+  });
+});
+
+const cityInput = document.getElementById("cityinput");
+cityInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    const city = cityInput.value;
+
+    getWeatherDataForCity(city).then((weatherData) => {
+      console.log(weatherData);
+      writeCityName(weatherData.city.name);
+      writeTemperature(Math.round(weatherData.list[0].main.temp));
+      writeWeatherType(weatherData.list[0].weather[0].main);
+    });
+  }
+});
