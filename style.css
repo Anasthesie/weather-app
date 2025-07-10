@@ -126,17 +126,6 @@ h1 {
   font-weight: bolder;
   font-size: 20px;
 }
-.five-days-forecast-card {
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-  background-color: #fff;
-  margin-top: 50px;
-  padding: 20px;
-  border-radius: 30px;
-}
-.five-days-forecast-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-}
 body.dark-mode {
   background-color: #121c2a;
   color: #cfd8dc;
@@ -172,16 +161,7 @@ body.dark-mode .modes i:hover {
   color: #b3e5fc;
 }
 
-body.dark-mode .five-days-forecast-card {
-  background-color: #1e2a38;
-  color: #cfd8dc;
-  box-shadow: 0 0 15px #455a64bb;
-}
-body.dark-mode .five-days-forecast-card:hover {
-  box-shadow: 0 15px 35px #455a64cc;
-}
-
 body.dark-mode #five-days-container div {
-  color: #b0bec5;
+  color: #567585;
   font-weight: 600;
 }

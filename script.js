@@ -35,23 +35,52 @@ function writeCityName(name) {
 function writeTemperature(temperature) {
   document.getElementById("temperature").innerHTML = temperature + "&deg;";
 }
+
 function writeAllDays(fiveDaysInfoArray) {
   const daysContainer = document.getElementById("five-days-container");
 
   daysContainer.textContent = " ";
   daysContainer.style.display = "flex";
   daysContainer.style.justifyContent = "space-between";
-  daysContainer.style.padding = "20px";
 
   fiveDaysInfoArray.map((item) => {
-    const newParagraph = document.createElement("div");
-    newParagraph.textContent =
-      item.date + " " + " " + item.min + " " + " " + item.max;
-    daysContainer.appendChild(newParagraph);
+    const fiveDayCard = document.createElement("div");
+    fiveDayCard.textContent = item.date;
+    fiveDayCard.style.fontWeight = "bold";
+    fiveDayCard.style.fontSize = "16px";
+    fiveDayCard.style.height = "100px";
+    fiveDayCard.style.width = "200px";
+    fiveDayCard.style.borderRadius = "20px";
+    fiveDayCard.style.display = "flex";
+    fiveDayCard.style.flexDirection = "column";
+    fiveDayCard.style.alignItems = "center";
+    fiveDayCard.style.justifyContent = "center";
+    fiveDayCard.style.transition = "transform 0.4s ease, box-shadow 0.4s ease";
+    fiveDayCard.style.backgroundColor = "#fff";
+    fiveDayCard.style.marginTop = "50px";
+    fiveDayCard.style.padding = "20px";
+    fiveDayCard.style.borderRadius = "30px";
+    fiveDayCard.addEventListener("mouseenter", () => {
+      fiveDayCard.style.transform = "scale(1.05)";
+      fiveDayCard.style.boxShadow = "0 15px 35px rgba(0, 0, 0, 0.2)";
+    });
+    fiveDayCard.addEventListener("mouseleave", () => {
+      fiveDayCard.style.transform = "scale(1)";
+      fiveDayCard.style.boxShadow = "none";
+    });
 
-    newParagraph.style.fontWeight = "bold";
-    newParagraph.style.fontSize = "16px";
-    newParagraph.style.textAlign = "center";
+    daysContainer.appendChild(fiveDayCard);
+
+    const minDiv = document.createElement("div");
+    minDiv.classList.add("min");
+
+    minDiv.textContent = "Min: " + item.min;
+    fiveDayCard.appendChild(minDiv);
+
+    const maxDiv = document.createElement("div");
+    maxDiv.classList.add("max");
+    maxDiv.textContent = "Max:" + item.max;
+    fiveDayCard.appendChild(maxDiv);
   });
 }
 
