@@ -19,6 +19,10 @@ async function getWeatherDataForCityFromApi(city) {
   const weatherResponse = await fetch(weatherUrl);
   const weatherData = await weatherResponse.json();
 
+  const fiveDaysInfoArray = getInfoForNextFiveDays(weatherData);
+  console.log(fiveDaysInfoArray);
+  writeAllDays(fiveDaysInfoArray);
+
   return { weather: weatherData, locationName: locationName };
 }
 
@@ -28,6 +32,18 @@ function writeCityName(name) {
 
 function writeTemperature(temperature) {
   document.getElementById("temperature").innerHTML = temperature + "&deg;";
+}
+function writeAllDays(fiveDaysInfoArray) {
+  const daysContainer = document.getElementById("five-days-container");
+
+  daysContainer.textContent = " ";
+
+  fiveDaysInfoArray.map((item) => {
+    const newParagraph = document.createElement("div");
+    newParagraph.textContent =
+      item.date + " " + " " + item.min + " " + " " + item.max;
+    daysContainer.appendChild(newParagraph);
+  });
 }
 
 function writeWeatherType(type) {
@@ -119,3 +135,32 @@ toggleOff.addEventListener("click", () => {
   const city = cityInput.value;
   showWeather(city);
 });
+
+function getInfoForOneDay(list, day) {
+  const filtered = list.filter((listItem) => {
+    return day === listItem.dt_txt.slice(0, 10);
+  });
+  const temps = filtered.map((listItem) => {
+    return listItem.main.temp;
+  });
+  const min = Math.min(...temps);
+  const max = Math.max(...temps);
+  return { minTemp: min, maxTemp: max };
+}
+
+function getInfoForNextFiveDays(weatherData) {
+  const fiveDays = [];
+  for (let i = 1; i < 6; i++) {
+    const date = new Date();
+    date.setDate(date.getDate() + i);
+    const formattedDate = date.toISOString().split("T")[0];
+    const onedayInfo = getInfoForOneDay(weatherData.list, formattedDate);
+
+    fiveDays.push({
+      date: formattedDate,
+      max: onedayInfo.maxTemp,
+      min: onedayInfo.minTemp,
+    });
+  }
+  return fiveDays;
+}
