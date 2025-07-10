@@ -7,8 +7,10 @@ async function getWeatherDataForCityFromApi(city) {
   const locationResponse = await fetch(locationUrl);
   const locationData = await locationResponse.json();
 
+  console.log(locationData);
   if (locationData.length === 0) {
     alert("City not found");
+    return;
   }
 
   const lat = locationData[0].lat;
@@ -37,12 +39,19 @@ function writeAllDays(fiveDaysInfoArray) {
   const daysContainer = document.getElementById("five-days-container");
 
   daysContainer.textContent = " ";
+  daysContainer.style.display = "flex";
+  daysContainer.style.justifyContent = "space-between";
+  daysContainer.style.padding = "20px";
 
   fiveDaysInfoArray.map((item) => {
     const newParagraph = document.createElement("div");
     newParagraph.textContent =
       item.date + " " + " " + item.min + " " + " " + item.max;
     daysContainer.appendChild(newParagraph);
+
+    newParagraph.style.fontWeight = "bold";
+    newParagraph.style.fontSize = "16px";
+    newParagraph.style.textAlign = "center";
   });
 }
 
@@ -92,6 +101,11 @@ function showWeather(city) {
   const spinner = document.getElementById("spinner");
   spinner.style.display = "block";
   getWeatherDataForCityFromApi(city).then((data) => {
+    if (!data) {
+      writeCityName("NOT FOUND");
+      spinner.style.display = "none";
+      return;
+    }
     const weatherData = data.weather;
     const cityName = data.locationName;
     writeCityName(cityName);
@@ -164,3 +178,19 @@ function getInfoForNextFiveDays(weatherData) {
   }
   return fiveDays;
 }
+
+function darkMode() {
+  const lightIcon = document.getElementById("light");
+  const body = document.body;
+
+  lightIcon.addEventListener("click", () => {
+    if (body.classList.contains("dark-mode")) {
+      body.classList.remove("dark-mode");
+      lightIcon.src = "./images/01_sunny_color_w32.svg";
+    } else {
+      body.classList.add("dark-mode");
+      lightIcon.src = "./images/02_moon_stars_color_w64.svg";
+    }
+  });
+}
+darkMode();
