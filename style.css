@@ -165,3 +165,48 @@ body.dark-mode #five-days-container div {
   color: #567585;
   font-weight: 600;
 }
+@media (max-width: 480px) {
+  .container {
+    width: 100%;
+    padding: 0 15px;
+  }
+  header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  input {
+    width: 100%;
+    max-width: 100%;
+  }
+  .search-icon-img {
+    width: 20px;
+    height: 20px;
+    right: 12px;
+    top: 50%;
+    padding: 3px;
+  }
+  .modes {
+    justify-content: flex-start;
+    gap: 15px;
+  }
+  .temperature {
+    font-size: 36px;
+    line-height: 1.1;
+  }
+  h1 {
+    font-size: 28px;
+  }
+  .weather-type {
+    font-size: 14px;
+    gap: 5px;
+  }
+  .weather-type img {
+    width: 20px;
+    height: 20px;
+  }
+  .card {
+    height: auto;
+    padding: 15px 10px;
+  }
+}
